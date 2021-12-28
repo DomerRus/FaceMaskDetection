@@ -37,7 +37,7 @@ public class YoloService {
             List<File> lst = Arrays.asList(arrFiles);
             log.info(lst.toString());
             System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-            //System.loadLibrary("opencv_java.so");
+            System.loadLibrary("libopencv_core.so.4.5.4");
         }
 
         public ByteArrayOutputStream maskDetect(InputStream is) {
