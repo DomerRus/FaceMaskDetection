@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="opencv-4541">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/yolo/lib/opencv-454.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

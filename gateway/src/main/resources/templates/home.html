@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Route</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzfVXn8XGuWdStx5q9i5C8QO-Daj4Dv7hAwubHoImaCUWP_6Qs5RiBEh5p_m-jQXSFyOA&usqp=CAU">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=de955db6-3fe5-4854-bee6-cd6929a7a224&lang=ru_RU" type="text/javascript">
+    </script>
+</head>
+<body>
+  <div id="login">
+      <form name="uploader" enctype="multipart/form-data" method="POST">
+          <p>Загрузите ваши фотографии на сервер</p>
+          <p><input type="file" name="photo" multiple accept="image/*,image/jpeg">
+              <input type="button" onclick="on_click()" value="Отправить"></p>
+      </form>
+      <div>
+          <img id="image" src="#"/>
+      </div>
+  </div>
+
+    <script>
+        let base_url = "http://localhost:8080"
+
+        function on_click(){
+            var formData = new FormData($("form[name='uploader']")[0])
+            $.ajax({
+                type: "POST",
+                url: base_url + "/yolo-service/detect",
+                data: formData,
+                processData: false,
+                contentType: false,
+                mimeType: "text/plain; charset=x-user-defined",
+                success: function (result, textStatus, jqXHR) {
+                    if(result.length < 1){
+                        alert("The thumbnail doesn't exist");
+                        $("#image").attr("src", "data:image/jpeg;base64,");
+                        return
+                    }
+
+                    var binary = "";
+                    var responseText = jqXHR.responseText;
+                    var responseTextLen = responseText.length;
+
+                    for ( i = 0; i < responseTextLen; i++ ) {
+                        binary += String.fromCharCode(responseText.charCodeAt(i) & 255)
+                    }
+                    $("#image").attr('src', 'data:image/jpeg;base64,' + base64Encode(result));
+                }
+            });
+
+            function base64Encode(str) {
+                var CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+                var out = "", i = 0, len = str.length, c1, c2, c3;
+                while (i < len) {
+                    c1 = str.charCodeAt(i++) & 0xff;
+                    if (i == len) {
+                        out += CHARS.charAt(c1 >> 2);
+                        out += CHARS.charAt((c1 & 0x3) << 4);
+                        out += "==";
+                        break;
+                    }
+                    c2 = str.charCodeAt(i++);
+                    if (i == len) {
+                        out += CHARS.charAt(c1 >> 2);
+                        out += CHARS.charAt(((c1 & 0x3)<< 4) | ((c2 & 0xF0) >> 4));
+                        out += CHARS.charAt((c2 & 0xF) << 2);
+                        out += "=";
+                        break;
+                    }
+                    c3 = str.charCodeAt(i++);
+                    out += CHARS.charAt(c1 >> 2);
+                    out += CHARS.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+                    out += CHARS.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >> 6));
+                    out += CHARS.charAt(c3 & 0x3F);
+                }
+                return out;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/yolo-service/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/yolo-service/lib" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/yolo-service/lib" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/yolo-service/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/yolo-service/lib" recursive="false" type="SOURCES" />
+  </library>
+</component>

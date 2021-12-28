@@ -1,0 +1,8 @@
+ru/ityce4ka/yolo/YoloServiceApplication.java
+ ru.ityce4ka.yolo.YoloServiceApplication
+ru/ityce4ka/yolo/rest/DetectResource.java
+ ru.ityce4ka.yolo.rest.DetectResource
+ru/ityce4ka/yolo/service/YoloService.java
+ ru.ityce4ka.yolo.service.YoloService
+ru/ityce4ka/yolo/service/LoadModelSingleton.java
+ ru.ityce4ka.yolo.service.LoadModelSingleton
