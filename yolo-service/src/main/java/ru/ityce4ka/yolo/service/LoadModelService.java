@@ -20,12 +20,11 @@ import java.io.IOException;
 
 @Slf4j
 @Service
-public class LoadModelSingleton {
+public class LoadModelService {
 
-    private static LoadModelSingleton instance;
     public ZooModel<Image, DetectedObjects> model;
 
-    private LoadModelSingleton() throws ModelNotFoundException, MalformedModelException, IOException {
+    private LoadModelService() throws ModelNotFoundException, MalformedModelException, IOException {
         Pipeline pipeline = new Pipeline();
         pipeline.add(new Resize(640, 640));
         pipeline.add(new ToTensor());
@@ -40,12 +39,5 @@ public class LoadModelSingleton {
                         .optEngine("PyTorch")
                         .build();
         this.model = ModelZoo.loadModel(criteria);
-    }
-
-    public static LoadModelSingleton getInstance() throws ModelNotFoundException, MalformedModelException, IOException {
-        if (instance == null) {
-            instance = new LoadModelSingleton();
-        }
-        return instance;
     }
 }

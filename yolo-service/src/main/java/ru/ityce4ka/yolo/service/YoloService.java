@@ -16,6 +16,7 @@ import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.springframework.stereotype.Service;
+import ru.ityce4ka.yolo.model.DetectResponseDto;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,25 +24,20 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.opencv.imgcodecs.Imgcodecs.IMREAD_UNCHANGED;
 
 @Slf4j
 @Service
 public class YoloService {
-
-        static {
-           // File dir = new File("/lib"); //path указывает на директорию
-           // File[] arrFiles = dir.listFiles();
-           // List<File> lst = Arrays.asList(arrFiles);
-            //log.info(lst.toString());
+        private final LoadModelService loadModelService;
+        YoloService(LoadModelService loadModelService){
             System.load(System.getProperty("java.library.path")+System.mapLibraryName(Core.NATIVE_LIBRARY_NAME));
-            //System.loadLibrary("libopencv_core.so.4.5.4");
+            this.loadModelService = loadModelService;
         }
 
-        public ByteArrayOutputStream maskDetect(InputStream is) {
+        public ByteArrayOutputStream maskDetectImage(InputStream is) {
             try{
                 byte[] bytes = is.readAllBytes();
                 Mat mat = Imgcodecs.imdecode(new MatOfByte(bytes), IMREAD_UNCHANGED);
@@ -58,6 +54,43 @@ public class YoloService {
             }
         }
 
+        public List<DetectResponseDto> maskDetect(InputStream is) {
+            List<DetectResponseDto> detected = new ArrayList<>();
+            try{
+                byte[] bytes = is.readAllBytes();
+                Mat mat = Imgcodecs.imdecode(new MatOfByte(bytes), IMREAD_UNCHANGED);
+                Image img = mat2Image(mat);
+                try (Predictor<Image, DetectedObjects> predictor = loadModelService.model.newPredictor()) {
+
+                    DetectedObjects results = predictor.predict(img);
+                    for (DetectedObject obj : results.<DetectedObject>items()) {
+
+                        BoundingBox bbox = obj.getBoundingBox();
+                        Rectangle rectangle = bbox.getBounds();
+
+                        DetectResponseDto dto = DetectResponseDto.builder()
+                                .className(obj.getClassName())
+                                .probability(obj.getProbability())
+                                .bounds(new ArrayList<>())
+                                .build();
+
+                        dto.getBounds().add(rectangle.getX());
+                        dto.getBounds().add(rectangle.getY());
+                        dto.getBounds().add(rectangle.getWidth());
+                        dto.getBounds().add(rectangle.getHeight());
+                        detected.add(dto);
+//                        rect.x = (int) (rectangle.getX()*coefWidth);
+//                        rect.y = (int) (rectangle.getY()*coefHeight);
+//                        rect.width = (int) (rectangle.getWidth()*coefWidth);
+//                        rect.height = (int) (rectangle.getHeight()*coefHeight);
+                    }
+                }
+            } catch (RuntimeException | TranslateException | IOException e) {
+                log.error(e.toString());
+                log.error(Arrays.toString(e.getStackTrace()));
+            }
+            return detected;
+        }
 
         void detect(Mat frame) throws IOException, ModelNotFoundException, MalformedModelException, TranslateException {
             Rect rect = new Rect();
@@ -69,7 +102,7 @@ public class YoloService {
             Double coefWidth = img.getWidth()/640.0;
             Double coefHeight = img.getHeight()/640.0;
             long startTime = System.currentTimeMillis();
-            try (Predictor<Image, DetectedObjects> predictor = LoadModelSingleton.getInstance().model.newPredictor()) {
+            try (Predictor<Image, DetectedObjects> predictor = loadModelService.model.newPredictor()) {
 
                 DetectedObjects results = predictor.predict(img);
                 for (DetectedObject obj : results.<DetectedObject>items()) {
