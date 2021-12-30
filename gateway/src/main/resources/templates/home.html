@@ -21,13 +21,13 @@
   </div>
 
     <script>
-        let base_url = "http://localhost:8080"
+        let base_url = "http://localhost:8081"
 
         function on_click(){
             var formData = new FormData($("form[name='uploader']")[0])
             $.ajax({
                 type: "POST",
-                url: base_url + "/yolo-service/detect",
+                url: base_url + "/detect",
                 data: formData,
                 processData: false,
                 contentType: false,

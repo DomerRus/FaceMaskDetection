@@ -34,7 +34,7 @@ public class LoadModelSingleton {
                 Criteria.builder()
                         .setTypes(Image.class, DetectedObjects.class)
                         .optDevice(Device.cpu())
-                        .optModelUrls("./yolo")
+                        .optModelUrls("yolo")
                         .optModelName("best.torchscript")
                         .optTranslator(translator)
                         .optEngine("PyTorch")

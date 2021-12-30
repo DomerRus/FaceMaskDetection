@@ -19,10 +19,11 @@ import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.Arrays;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.opencv.imgcodecs.Imgcodecs.IMREAD_UNCHANGED;
@@ -32,12 +33,12 @@ import static org.opencv.imgcodecs.Imgcodecs.IMREAD_UNCHANGED;
 public class YoloService {
 
         static {
-            File dir = new File("/lib"); //path указывает на директорию
-            File[] arrFiles = dir.listFiles();
-            List<File> lst = Arrays.asList(arrFiles);
-            log.info(lst.toString());
-            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-            System.loadLibrary("libopencv_core.so.4.5.4");
+           // File dir = new File("/lib"); //path указывает на директорию
+           // File[] arrFiles = dir.listFiles();
+           // List<File> lst = Arrays.asList(arrFiles);
+            //log.info(lst.toString());
+            System.load(System.getProperty("java.library.path")+System.mapLibraryName(Core.NATIVE_LIBRARY_NAME));
+            //System.loadLibrary("libopencv_core.so.4.5.4");
         }
 
         public ByteArrayOutputStream maskDetect(InputStream is) {
