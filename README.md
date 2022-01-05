@@ -4,38 +4,38 @@
 
 The REST API to the example app is described below.
 
-## Search masks on image
+## Search masks on image (return image)
 
 ### Request
 
 `POST /detect/img/`
 
-    curl -i -H 'Accept: application/json' http://localhost:8081/detect/img/
+    curl -i -H 'Accept: application/json' http://localhost:8080/yolo-service/detect/img/
 
 ### Response
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Date: Sun, 2 Jun 2022 12:36:30 GMT
     Status: 200 OK
     Connection: close
-    Content-Type: application/json
+    Content-Type: image/jpeg
     Content-Length: 2
 
-    []
+    [image]
 
 
-## Search masks on image
+## Search masks on image (return bbox coordinates)
 
 ### Request
 
 `POST /detect/`
 
-    curl -i -H 'Accept: application/json' http://localhost:8081/detect/
+    curl -i -H 'Accept: application/json' http://localhost:8080/yolo-service/detect/
 
 ### Response
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Date: Sun, 2 Jun 2022 12:36:30 GMT
     Status: 200 OK
     Connection: close
     Content-Type: application/json
@@ -48,7 +48,7 @@ The REST API to the example app is described below.
 ### face_mask.yaml
 
 ```
-train: ../../dataset/set/images/train
+train: ../../dataset/set/images/train 
 val: ../../dataset/set/images/val
 test: ../../dataset/set/images/test
 
@@ -72,9 +72,9 @@ https://developer.nvidia.com/cuda-toolkit-archive
 use `--device [0,1, ... or cpu]` for choose GPU 
 
 ```
-python train.py --img 640 --cfg yolov5s.yaml --hyp hyp.scratch.yaml --batch 16 --epochs 100 --data face_mask.yaml --workers 12 --name yolo_faсe_mask
+python train.py --img 640 --cfg yolov5s.yaml --hyp hyp.scratch.yaml --batch 16 --epochs 100 --data face_mask.yaml --workers 12 --name <your project name>
 ```
 ### export model
 ```
-python export.py --weights ./runs/train/yolo_face_mask18/weights/best.pt --include torchscript
+python export.py --weights ./runs/train/<your project name>/weights/best.pt --include torchscript
 ```

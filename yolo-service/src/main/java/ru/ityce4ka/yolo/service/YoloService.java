@@ -31,6 +31,7 @@ import static org.opencv.imgcodecs.Imgcodecs.IMREAD_UNCHANGED;
 @Slf4j
 @Service
 public class YoloService {
+
         private final LoadModelService loadModelService;
         YoloService(LoadModelService loadModelService){
             System.load(System.getProperty("java.library.path")+System.mapLibraryName(Core.NATIVE_LIBRARY_NAME));
@@ -54,12 +55,27 @@ public class YoloService {
             }
         }
 
+        public byte[] maskDetectWS(byte[] ba) {
+            try{
+                Mat mat = Imgcodecs.imdecode(new MatOfByte(ba), IMREAD_UNCHANGED);
+                detect(mat);
+                MatOfByte bytemat = new MatOfByte();
+                Imgcodecs.imencode(".jpg", mat, bytemat);
+                return bytemat.toArray();
+            } catch (RuntimeException | ModelException | TranslateException | IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
         public List<DetectResponseDto> maskDetect(InputStream is) {
             List<DetectResponseDto> detected = new ArrayList<>();
             try{
                 byte[] bytes = is.readAllBytes();
                 Mat mat = Imgcodecs.imdecode(new MatOfByte(bytes), IMREAD_UNCHANGED);
                 Image img = mat2Image(mat);
+                Double coefWidth = img.getWidth()/640.0;
+                Double coefHeight = img.getHeight()/640.0;
                 try (Predictor<Image, DetectedObjects> predictor = loadModelService.model.newPredictor()) {
 
                     DetectedObjects results = predictor.predict(img);
@@ -74,15 +90,11 @@ public class YoloService {
                                 .bounds(new ArrayList<>())
                                 .build();
 
-                        dto.getBounds().add(rectangle.getX());
-                        dto.getBounds().add(rectangle.getY());
-                        dto.getBounds().add(rectangle.getWidth());
-                        dto.getBounds().add(rectangle.getHeight());
+                        dto.getBounds().add(rectangle.getX()*coefWidth);
+                        dto.getBounds().add(rectangle.getY()*coefHeight);
+                        dto.getBounds().add(rectangle.getWidth()*coefWidth);
+                        dto.getBounds().add(rectangle.getHeight()*coefHeight);
                         detected.add(dto);
-//                        rect.x = (int) (rectangle.getX()*coefWidth);
-//                        rect.y = (int) (rectangle.getY()*coefHeight);
-//                        rect.width = (int) (rectangle.getWidth()*coefWidth);
-//                        rect.height = (int) (rectangle.getHeight()*coefHeight);
                     }
                 }
             } catch (RuntimeException | TranslateException | IOException e) {
@@ -99,9 +111,9 @@ public class YoloService {
             colorPicker.put("with_mask", new Scalar(0,255,0));
             colorPicker.put("mask_weared_incorrect", new Scalar(255,0,0));
             Image img = mat2Image(frame);
+            log.info("Image height: {}, width: {}",img.getHeight(), img.getWidth());
             Double coefWidth = img.getWidth()/640.0;
             Double coefHeight = img.getHeight()/640.0;
-            long startTime = System.currentTimeMillis();
             try (Predictor<Image, DetectedObjects> predictor = loadModelService.model.newPredictor()) {
 
                 DetectedObjects results = predictor.predict(img);
@@ -122,7 +134,6 @@ public class YoloService {
                             colorPicker.get(obj.getClassName()));
                 }
             }
-            System.out.println(String.format("%.2f", 1000.0 / (System.currentTimeMillis() - startTime)));
         }
         private static BufferedImage mat2bufferedImage(Mat image) {
             MatOfByte bytemat = new MatOfByte();

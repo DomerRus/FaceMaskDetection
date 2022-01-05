@@ -42,8 +42,7 @@ public class DetectResource {
     }
 
     @PostMapping
-    List<DetectResponseDto> detectMasks(HttpServletResponse response,
-                                        @RequestPart("photo") MultipartFile photo) throws IOException {
+    List<DetectResponseDto> detectMasks(@RequestPart("photo") MultipartFile photo) throws IOException {
          return service.maskDetect(photo.getInputStream());
     }
 

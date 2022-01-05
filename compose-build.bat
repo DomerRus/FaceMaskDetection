@@ -1,2 +1,2 @@
-docker-compose -f compose.yml build yolo-service
+docker-compose -f compose.yml build gateway
 pause;

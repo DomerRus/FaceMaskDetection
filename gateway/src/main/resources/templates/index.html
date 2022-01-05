@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta charset="utf-8">
+ <title>Face mask detection</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzfVXn8XGuWdStx5q9i5C8QO-Daj4Dv7hAwubHoImaCUWP_6Qs5RiBEh5p_m-jQXSFyOA&usqp=CAU">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+ <div class = "selector">
+  <button class="button-style" onclick="hideImage()">Camera detection</button>
+  <button class="button-style" onclick="hideCamera()">Image detection</button>
+  <div id ="imageVsbl"class="visible">
+   <div class = "imageLoader">
+     <form name="uploader" enctype="multipart/form-data" method="POST">
+      <p>Загрузите ваши фотографии на сервер</p>
+      <p><input id="file-upload" type="file" name="photo" accept="image/*" />
+      <input class="button-style" type="button" onclick="on_click()" value="Отправить"></p>
+     </form>
+
+    <div>
+      <img id="image" src="#"/>
+    </div>
+   </div>
+  </div>
+  <div id ="cameraVsbl"class="hidden">
+   <div class="cameraDetection">
+     <br>
+     <img id = "camera" alt="" />
+     <video></video>
+     <canvas width = "1280" height = "720"></canvas>
+   </div>
+  </div>
+ </div>
+ <script src="js/main.js"></script>
+</body>
+</html>
