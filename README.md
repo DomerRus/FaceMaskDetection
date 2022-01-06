@@ -43,7 +43,16 @@ The REST API to the example app is described below.
     Content-Type: application/json
     Content-Length: 2
 
-    []
+    [{
+        "bounds": [
+            107.24603271484375,
+            328.1503601074219,
+            132.0777587890625,
+            114.7342529296875
+        ],
+        "className": "without_mask",
+        "probability": 0.8773182034492493
+    },...]
 
 
 # Train
