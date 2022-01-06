@@ -2,7 +2,7 @@ version: "3.8"
 services:
   eureka:
     container_name: eureka
-    image: eureka:jdk11
+    image: ityce4ka/eureka:jdk11
     restart: unless-stopped
     build: ./eureka
     ports:
@@ -10,7 +10,7 @@ services:
 
   gateway:
     container_name: gateway
-    image: gateway:jdk11
+    image: ityce4ka/gateway:jdk11
     restart: unless-stopped
     build: ./gateway
     environment:
@@ -18,13 +18,13 @@ services:
       EUREKA_HOST: eureka
       EUREKA_PORT: 8761
     ports:
-      - "80:8080"
+      - "8080:8080"
     depends_on:
       - eureka
 
   yolo-service:
     container_name: yolo-service
-    image: yolo-service:jdk11
+    image: ityce4ka/yolo-service:jdk11
     restart: unless-stopped
     build: ./yolo-service
     environment:

@@ -1,5 +1,5 @@
-let base_url = "http://localhost:8081"
-var url = "ws://localhost:8081/ws";
+let base_url = "https://1dnr-sevice.com/yolo-service"
+var url = "wss://ws.1dnr-sevice.com/ws";
 var socket = new WebSocket(url);
 var video = document.querySelector('video');
 var constraints={
@@ -74,15 +74,24 @@ function hideCamera(){
 function hideImage(){
 	$("#cameraVsbl").attr("class", "visible")
 	$("#imageVsbl").attr("class", "hidden")
-	if (video.srcObject == null ) {
+	try {
+		if (video.srcObject == null) {
+			navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+				video.srcObject = stream;
+				video.play();
+			}).catch(function (err) {
+
+			});
+		} else {
+			video.play()
+		}
+	}catch (e){
 		navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
 			video.srcObject = stream;
 			video.play();
 		}).catch(function (err) {
 
 		});
-	}else {
-		video.play()
 	}
 	interval = setInterval(main ,1500);
 }
