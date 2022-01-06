@@ -1,5 +1,5 @@
 
-# YoloSpringJava
+# FaceMaskDetection
 ![photo_2022-01-06_21-55-28](https://user-images.githubusercontent.com/47446020/148439722-4796ca96-5fd7-4acc-bae9-82c3d36f2b2a.jpg)
 # REST API
 
