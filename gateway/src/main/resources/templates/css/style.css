@@ -10,24 +10,26 @@
 * {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif
 }
+
 html{
-	height: auto;
 	min-height: 100%;
 }
+
 body{
 	width:auto;
 	height:100%;
-	background: #bc1888;
-	background: -moz-linear-gradient(45deg, #cea1ff 0%, #a15ce7 25%, #a840be 50%, #da01ff 75%, #bc1888 100%);
-	background: -webkit-linear-gradient(45deg, #cea1ff 0%, #a15ce7 25%, #a840be 50%, #da01ff 75%, #bc1888 100%);
-	background: linear-gradient(45deg, #cea1ff 0%, #a15ce7 25%, #a840be 50%, #da01ff 75%, #bc1888 100%);
+		background:
+        		radial-gradient(ellipse farthest-corner at right bottom, #fedb37 0%, #FDB931 8%, #9f7928 30%, #8a6e2f 40%, transparent 80%),
+        		radial-gradient(ellipse farthest-corner at left top, #ffffff 0%, #ffffac 8%, #d1b464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
 	color: white;
 	text-align: center;
 }
-
-
 
 .button-style{
 	background: #333;
@@ -41,7 +43,9 @@ body{
 	justify-content: center;
 	cursor: pointer;
 }
+.imageLoader{
 
+}
 .button-style:hover {background: #222;}
 
 .button-style:focus {outline: none;}
@@ -58,8 +62,183 @@ canvas, video{
 
 .selector .hidden{
 	display: none;
+	margin-top:5em;
 }
 
 .selector .visible{
+	width: 97vw;
+	height: 100%;
+}
+.center{
 	display: block;
+}
+
+.left{
+	display: flex;
+
+}
+.example-1 .form-group{padding:1em;margin-left:36em}
+.example-1 input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}
+.example-1 .label{width:120px;border:2px dashed grey;border-radius:5px;display:block;padding:1.2em;transition:border 300ms ease;cursor:pointer;text-align:center}
+.example-1 .label i{display:block;font-size:42px;padding-bottom:16px}
+.example-1 .label i,.example-1 .label .title{color:grey;transition:200ms color}
+.example-1 .label:hover{border:2px solid #00008B}
+.example-1 .label:hover i,.example-1 .label:hover .title{color:#00008B}
+
+
+.cl-effect a {
+    color: rgba(0,0,0,0.2);
+    font-weight: 700;
+    text-shadow: none;
+}
+.cl-effect a::before {
+    color: #fff;
+    content: attr(data-hover);
+    position: absolute;
+    transition: transform 0.3s, opacity 0.3s;
+}
+.cl-effect a:hover::before,
+.cl-effect a:focus::before {
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+.container-main{
+	margin-top:5em;
+}
+
+.buttons-block{
+	padding: 20px;
+	display: none;
+}
+.container-body{
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.footer{
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+}
+
+.drag-image {
+	border: 1px dashed #fff;
+	height: 300px;
+	width: 350px;
+	border-radius: 5px;
+	font-weight: 400;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column
+}
+
+.drag-image.active {
+	border: 2px solid #fff
+}
+
+.drag-image .icon {
+	font-size: 30px;
+	color: #fff
+}
+
+.drag-image h6 {
+	font-size: 20px;
+	font-weight: 300;
+	color: #fff
+}
+
+.drag-image span {
+	font-size: 14px;
+	font-weight: 300;
+	color: #fff;
+	margin: 10px 0 15px 0
+}
+
+.drag-image button {
+	padding: 10px 25px;
+	font-size: 14px;
+	font-weight: 300;
+	border: none;
+	outline: none;
+	background: transparent;
+	color: #fff;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.5s
+}
+
+.imageLoader-left{
+	display: flex;
+	align-items: start;
+	justify-content: left;
+	transform: scale(0.5) translateX(-50%) translateY(-50%);
+	margin: 0;
+}
+.imageLoader-center{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+.drag-image button:hover {
+	background-color: #fff;
+	color: red
+}
+
+.drag-image img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 5px
+}
+
+
+.gallery {
+	display: block;
+	background-color: #212529;
+	height: 87vh;
+	width: 87vw;
+	transform: translateX(-7%);
+	border-radius: 1rem;
+;
+}
+
+.horizontal{
+	grid-column: span 2;
+}
+.vertical {
+	grid-row: span 2;
+}
+.big{
+	grid-column: span 2;
+	grid-row: span 2;
+}
+.scroll-bar{
+	display:block;
+	width: 110px;
+	max-height:65vw;
+	overflow-y:auto;
+	overflow-x:hidden;
+	transform:rotate(-90deg);
+	transform-origin:right top;
+}
+
+.viewer{
+	display: inline-block;
+	width: 70%;
+	height: 70%;
+	margin: 20px 20px 40px 0 ;
+
+}
+.card{
+	width:100px;
+	height:100px;
+	margin:5px;
+}
+.cover {
+	object-fit: contain;
 }

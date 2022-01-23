@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/YoloSpringJava.iml" filepath="$PROJECT_DIR$/.idea/YoloSpringJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/FaceMaskDetection.iml" filepath="$PROJECT_DIR$/.idea/FaceMaskDetection.iml" />
     </modules>
   </component>
 </project>
