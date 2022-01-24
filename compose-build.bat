@@ -1,2 +1,2 @@
-docker-compose -f compose.yml build gateway
+docker-compose -f compose.yml build
 pause;

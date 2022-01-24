@@ -10,7 +10,8 @@ var constraints={
 	audio:false
 };
 let interval = null;
-const gallery = document.querySelector(".gallery")
+const scroll = document.querySelector(".scroll-bar")
+const imageLoader = document.querySelector("#imageLoader")
 const dropArea = document.querySelector(".drag-image"),
 	dragText = dropArea.querySelector("h6"),
 	button = dropArea.querySelector("button"),
@@ -112,21 +113,25 @@ function viewfile(){
 var _URL = window.URL || window.webkitURL;
 
 function changeClass(file){
-	var img = new Image();
-	let imgWidth, imgHeight;
+	if(imageLoader.className === 'imageLoader-center'){
+		document.querySelector("#imageLoader").setAttribute('class', 'imageLoader-left');
+		document.querySelector("#imageVsbl").setAttribute('class', 'visible left');
+		document.querySelector("#gallery").setAttribute('class', 'gallery');
+	}
 	var objectUrl = _URL.createObjectURL(file);
-	img.onload = function () {
-		imgWidth = this.width
-		imgHeight = this.height;
-		if(this.width>this.height){
-			let imgTag = `<img src="${objectUrl}" class="horizontal" alt="image">`;
-			gallery.innerHTML += imgTag;
-		} else {
-			let imgTag = `<img src="${objectUrl}" class="vertical" alt="image">`;
-			gallery.innerHTML += imgTag;
-		}
-	};
-	img.src = objectUrl;
+	var img = document.createElement('img');
+	var div = document.createElement('div');
+	img.setAttribute('width', '100%');
+	img.setAttribute('height', '100%');
+	img.setAttribute('alt', '');
+	img.setAttribute('src', objectUrl);
+	img.addEventListener('click', function (){
+		$('#imageView').attr('src', this.src)
+	});
+	div.setAttribute('class', 'card')
+	div.insertAdjacentElement('afterbegin', img)
+	scroll.insertAdjacentElement('afterbegin', div)
+	$('#imageView').attr('src', objectUrl)
 }
 
 function base64Encode(str) {

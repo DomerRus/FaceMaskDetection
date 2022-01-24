@@ -1,8 +1,27 @@
+ru/ityce4ka/yolo/config/WebSocketComponent.java
+ ru.ityce4ka.yolo.config.WebSocketComponent
+ru/ityce4ka/yolo/model/DetectResponseDto.java
+ ru.ityce4ka.yolo.model.DetectResponseDto
+ ru.ityce4ka.yolo.model.DetectResponseDto$DetectResponseDtoBuilder
+ru/ityce4ka/yolo/config/WebSocketConfig.java
+ ru.ityce4ka.yolo.config.WebSocketConfig
+ru/ityce4ka/yolo/ws/DisconnectListener.java
+ ru.ityce4ka.yolo.ws.DisconnectListener
+ru/ityce4ka/yolo/ws/MessageListener.java
+ ru.ityce4ka.yolo.ws.MessageListener
+ru/ityce4ka/yolo/service/LoadModelService.java
+ ru.ityce4ka.yolo.service.LoadModelService
+ru/ityce4ka/yolo/ws/ConnectListener.java
+ ru.ityce4ka.yolo.ws.ConnectListener
 ru/ityce4ka/yolo/YoloServiceApplication.java
  ru.ityce4ka.yolo.YoloServiceApplication
-ru/ityce4ka/yolo/rest/DetectResource.java
- ru.ityce4ka.yolo.rest.DetectResource
 ru/ityce4ka/yolo/service/YoloService.java
  ru.ityce4ka.yolo.service.YoloService
-ru/ityce4ka/yolo/service/LoadModelSingleton.java
- ru.ityce4ka.yolo.service.LoadModelSingleton
+ru/ityce4ka/yolo/rest/DetectResource.java
+ ru.ityce4ka.yolo.rest.DetectResource
+ru/ityce4ka/yolo/ws/WebSocketHandler.java
+ ru.ityce4ka.yolo.ws.WebSocketHandler
+ru/ityce4ka/yolo/ws/MessageByteListener.java
+ ru.ityce4ka.yolo.ws.MessageByteListener
+ru/ityce4ka/yolo/config/AppConfig.java
+ ru.ityce4ka.yolo.config.AppConfig

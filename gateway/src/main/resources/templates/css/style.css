@@ -87,20 +87,20 @@ canvas, video{
 
 
 .cl-effect a {
-    color: rgba(0,0,0,0.2);
-    font-weight: 700;
-    text-shadow: none;
+	color: rgba(0,0,0,0.2);
+	font-weight: 700;
+	text-shadow: none;
 }
 .cl-effect a::before {
-    color: #fff;
-    content: attr(data-hover);
-    position: absolute;
-    transition: transform 0.3s, opacity 0.3s;
+	color: #fff;
+	content: attr(data-hover);
+	position: absolute;
+	transition: transform 0.3s, opacity 0.3s;
 }
 .cl-effect a:hover::before,
 .cl-effect a:focus::before {
-    transform: scale(0.9);
-    opacity: 0;
+	transform: scale(0.9);
+	opacity: 0;
 }
 
 .container-main{
@@ -109,7 +109,7 @@ canvas, video{
 
 .buttons-block{
 	padding: 20px;
-	display: none;
+	display: block;
 }
 .container-body{
 	padding: 20px;
@@ -207,16 +207,6 @@ canvas, video{
 ;
 }
 
-.horizontal{
-	grid-column: span 2;
-}
-.vertical {
-	grid-row: span 2;
-}
-.big{
-	grid-column: span 2;
-	grid-row: span 2;
-}
 .scroll-bar{
 	display:block;
 	width: 110px;
@@ -238,6 +228,7 @@ canvas, video{
 	width:100px;
 	height:100px;
 	margin:5px;
+	transform:rotate(90deg);
 }
 .cover {
 	object-fit: contain;
