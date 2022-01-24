@@ -233,3 +233,8 @@ canvas, video{
 .cover {
 	object-fit: contain;
 }
+
+.git-button{
+	right: 0;
+	height: 4vh;
+}

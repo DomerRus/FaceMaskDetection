@@ -228,7 +228,6 @@ socket.onclose = function(event) {
 	} else {
 		// например, сервер убил процесс или сеть недоступна
 		// обычно в этом случае event.code 1006
-		alert('[close] Соединение прервано');
 	}
 	socket = new WebSocket(url);
 };
