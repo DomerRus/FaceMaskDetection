@@ -1,5 +1,5 @@
 let base_url = "http://localhost:8081/"
-var url = "wss://ws.1dnr-sevice.com/ws";
+var url = "ws://localhost:8081/ws";
 var socket = new WebSocket(url);
 var video = document.querySelector('video');
 var constraints={
